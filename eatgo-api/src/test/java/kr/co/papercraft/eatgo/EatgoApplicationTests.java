@@ -9,6 +9,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class EatgoApplicationTests {
 
+	public void create(){
+
+	}
+
 	@Test
 	public void contextLoads() {
 	}
