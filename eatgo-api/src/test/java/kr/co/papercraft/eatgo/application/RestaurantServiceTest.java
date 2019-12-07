@@ -1,9 +1,6 @@
 package kr.co.papercraft.eatgo.application;
 
-import kr.co.papercraft.eatgo.domain.MenuItem;
-import kr.co.papercraft.eatgo.domain.MenuItemRepository;
-import kr.co.papercraft.eatgo.domain.Restaurant;
-import kr.co.papercraft.eatgo.domain.RestaurantRepository;
+import kr.co.papercraft.eatgo.domain.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -51,7 +48,7 @@ public class RestaurantServiceTest {
     }
 
     @Test
-    public void getRestaurants(){
+    public void getRestaurantsWithExisted(){
         List<Restaurant> restaurants = restaurantService.getRestaurants();
         Restaurant restaurant = restaurants.get(0);
         assertThat(restaurant.getId(), is(1004L));
@@ -62,17 +59,37 @@ public class RestaurantServiceTest {
     public void getRestaurant(){
         Restaurant restaurant = restaurantService.getRestaurant(1004L);
         assertThat(restaurant.getId(), is(1004L));
-        MenuItem menuItem = restaurant.getMenuItems().get(0);
-        assertThat(menuItem.getName(), is("김치전골"));
+    }
+
+    @Test(expected = RestaurantNotFoundException.class)
+    public void getRestaurantWithNotExisted(){
+        restaurantService.getRestaurant(404L);
     }
 
     @Test
     public void addRestaurant(){
-        Restaurant restaurant = new Restaurant("비룡", "BUsan");
-        Restaurant saved = new Restaurant(1234L,"비룡", "BUsan");
-        given(restaurantRepository.save(any())).willReturn(saved);
+        given(restaurantRepository.save(any())).will(invocation -> {
+            Restaurant restaurant = invocation.getArgument(0);
+            restaurant.setId(1234L);
+            return  restaurant;
+        });
+
+        Restaurant restaurant = Restaurant.builder()
+                .name("비룡")
+                .address("Busan")
+                .build();
+
         Restaurant created = restaurantService.addRestaurant(restaurant);
         assertThat(created.getId(), is(1234L));
+    }
+
+    @Test
+    public void updateRestaurant(){
+        Restaurant restaurant = new Restaurant(1004L,"비룡", "BUsan");
+        given(restaurantRepository.findById(1004L)).willReturn(Optional.of(restaurant));
+        Restaurant updated = restaurantService.updateRestaurant(1004L, "Sool zip", "Busan");
+        assertThat(updated.getName(), is("Sool zip"));
+        assertThat(updated.getAddress(), is("Busan"));
     }
 
 }

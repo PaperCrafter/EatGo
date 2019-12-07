@@ -1,33 +1,39 @@
 package kr.co.papercraft.eatgo.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.*;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Restaurant {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotEmpty
     private String name;
+    @NotEmpty
     private String address;
 
     @Transient
-    private List<MenuItem> menuItems = new ArrayList<>();;
+    @OneToMany
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private List<MenuItem> menuItems;
 
-    public Restaurant() {
-
-    }
-
-    public Restaurant(String name, String address) {
-        this.name = name;
-        this.address = address;
-    }
+    @Transient
+    @OneToMany
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private List<Review> reviews;
 
     public Restaurant(Long id, String name, String address){
         this.id = id;
@@ -35,37 +41,20 @@ public class Restaurant {
         this.address = address;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public Long getId(){
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getAddress(){
-        return address;
+    public void updateInformation(String name, String address){
+        this.name = name;
+        this.address = address;
     }
 
     public String getInformation(){
         return name + " in " + address;
     }
 
-    public List<MenuItem> getMenuItems(){
-        return menuItems;
-    }
-
-    public void addMenuItem(MenuItem menuItem) {
-        menuItems.add(menuItem);
-    }
-
     public void setMeuItems(List<MenuItem> menuItems) {
-        for(MenuItem menuItem: menuItems){
-            addMenuItem(menuItem);
-        }
+        this.menuItems = new ArrayList<>(menuItems);
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = new ArrayList<>(reviews);
     }
 }

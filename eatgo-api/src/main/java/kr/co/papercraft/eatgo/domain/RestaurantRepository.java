@@ -10,5 +10,5 @@ public interface RestaurantRepository extends CrudRepository<Restaurant, Long> {
 
     Optional<Restaurant> findById(Long id);
 
-    Object save(Restaurant restaurant);
+    Restaurant save(Restaurant restaurant);
 }

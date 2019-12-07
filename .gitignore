@@ -30,3 +30,7 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### front-end ###
+/eatgo-web/node_modules
+
