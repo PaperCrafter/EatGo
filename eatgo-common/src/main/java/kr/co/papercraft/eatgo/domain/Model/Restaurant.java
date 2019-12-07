@@ -1,11 +1,11 @@
-package kr.co.papercraft.eatgo.domain;
+package kr.co.papercraft.eatgo.domain.Model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import java.awt.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +20,9 @@ public class Restaurant {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
+    private Long categoryId;
+
     @NotEmpty
     private String name;
     @NotEmpty
@@ -32,12 +35,6 @@ public class Restaurant {
     @Transient
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<Review> reviews;
-
-    public Restaurant(Long id, String name, String address){
-        this.id = id;
-        this.name = name;
-        this.address = address;
-    }
 
     public void updateInformation(String name, String address){
         this.name = name;

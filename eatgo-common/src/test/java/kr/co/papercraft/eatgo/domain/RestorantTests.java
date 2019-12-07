@@ -1,11 +1,10 @@
 package kr.co.papercraft.eatgo.domain;
 
+import kr.co.papercraft.eatgo.domain.Model.Restaurant;
 import org.junit.Test;
-import org.springframework.web.bind.annotation.RestController;
 
-import static kr.co.papercraft.eatgo.domain.Restaurant.*;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 public class RestorantTests {
     @Test
@@ -22,7 +21,11 @@ public class RestorantTests {
 
     @Test
     public void information(){
-        Restaurant restaurant = new Restaurant(1004L,"Bob zip", "Seoul");
+        Restaurant restaurant = Restaurant.builder()
+                .id(1004L)
+                .name("Bob zip")
+                .address("Seoul")
+                .build();
 
         assertThat(restaurant.getInformation(), is("Bob zip in Seoul"));
     }

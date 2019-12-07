@@ -1,7 +1,7 @@
 package kr.co.papercraft.eatgo.application;
 
-import kr.co.papercraft.eatgo.domain.MenuItem;
-import kr.co.papercraft.eatgo.domain.MenuItemRepository;
+import kr.co.papercraft.eatgo.domain.Model.MenuItem;
+import kr.co.papercraft.eatgo.domain.Repository.MenuItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +16,11 @@ public class MenuItemService {
     public MenuItemService(MenuItemRepository menuItemRepository){
         this.menuItemRepository = menuItemRepository;
     }
+
+    public List<MenuItem> getMenuItems(Long restaurantId){
+        return menuItemRepository.findAllByRestaurantId(restaurantId);
+    }
+
 
     public void bulkUpdate(Long restaurantId, List<MenuItem> menuItems) {
         for(MenuItem menuItem : menuItems){
@@ -34,5 +39,9 @@ public class MenuItemService {
         }
         menuItem.setRestaurantId(restaurantId);
         menuItemRepository.save(menuItem);
+    }
+
+    public List<MenuItem> findAllByRestaurantId(long restaurantId) {
+        return menuItemRepository.findAllByRestaurantId(restaurantId);
     }
 }

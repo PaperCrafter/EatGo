@@ -1,7 +1,7 @@
 package kr.co.papercraft.eatgo.interfaces;
 
-import kr.co.papercraft.eatgo.application.ReviewService;
-import kr.co.papercraft.eatgo.domain.Model.Review;
+import kr.co.papercraft.eatgo.application.RegionService;
+import kr.co.papercraft.eatgo.domain.Model.Region;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,12 +9,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-public class ReviewController {
-    @Autowired
-    private ReviewService reviewService;
+public class RegionController {
 
-    @GetMapping("/reviews")
-    public List<Review> list(){
-        return reviewService.getReviews();
+    @Autowired
+    RegionService regionService;
+
+    @GetMapping("/regions")
+    public List<Region> list(){
+        return regionService.getRegions();
     }
+
 }

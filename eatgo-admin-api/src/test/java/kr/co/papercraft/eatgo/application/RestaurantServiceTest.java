@@ -1,6 +1,8 @@
 package kr.co.papercraft.eatgo.application;
 
 import kr.co.papercraft.eatgo.domain.*;
+import kr.co.papercraft.eatgo.domain.Model.Restaurant;
+import kr.co.papercraft.eatgo.domain.Repository.RestaurantRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -21,41 +23,25 @@ public class RestaurantServiceTest {
     @Mock
     private RestaurantRepository restaurantRepository;
 
-    @Mock
-    private MenuItemRepository menuItemRepository;
-
-    @Mock
-    private ReviewRepository reviewRepository;
-
     @Before
     public void setUp(){
         MockitoAnnotations.initMocks(this);
         mockRestaurantRepository();
-        mockMenuItemRepository();
-        mockReviewRepository();
-        restaurantService = new RestaurantService(restaurantRepository, menuItemRepository,reviewRepository);
+        restaurantService = new RestaurantService(restaurantRepository);
     }
 
     private void mockRestaurantRepository() {
         List<Restaurant> restaurants = new ArrayList<>();
-        Restaurant restaurant = new Restaurant(1004L, "Bob zip", "Seoul");
+        Restaurant restaurant = Restaurant.builder()
+                .id(1004L)
+                .name( "Bob zip")
+                .address("Seoul")
+                .build();
         restaurants.add(restaurant);
         given(restaurantRepository.findAll()).willReturn(restaurants);
 
         given(restaurantRepository.findById(1004L)).willReturn(Optional.of(restaurant));
 
-    }
-
-    private void mockMenuItemRepository(){
-        List<MenuItem> menuItems = new ArrayList<>();
-        menuItems.add(new MenuItem("김치전골"));
-        given(menuItemRepository.findAllByRestaurantId(1004L)).willReturn(menuItems);
-    }
-
-    private void mockReviewRepository(){
-        List<Review> reviews = new ArrayList<>();
-        reviews.add(Review.builder().name("paper").score(5).description("맛있어요").build());
-        given(reviewRepository.findAllByRestaurantId(1004L)).willReturn(reviews);
     }
 
     @Test
@@ -70,8 +56,6 @@ public class RestaurantServiceTest {
         Restaurant restaurant = restaurantService.getRestaurant(1004L);
         assertThat(restaurant.getId(), is(1004L));
 
-        Review reviews = restaurant.getReviews().get(0);
-        assertThat(reviews.getName(), is("paper"));
     }
 
     @Test(expected = RestaurantNotFoundException.class)
@@ -98,7 +82,11 @@ public class RestaurantServiceTest {
 
     @Test
     public void updateRestaurant(){
-        Restaurant restaurant = new Restaurant(1004L,"비룡", "BUsan");
+        Restaurant restaurant = Restaurant.builder()
+                .id(1004L)
+                .address("Busan")
+                .name("비룡")
+                .build();
         given(restaurantRepository.findById(1004L)).willReturn(Optional.of(restaurant));
         Restaurant updated = restaurantService.updateRestaurant(1004L, "Sool zip", "Busan");
         assertThat(updated.getName(), is("Sool zip"));

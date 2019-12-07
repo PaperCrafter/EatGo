@@ -2,10 +2,7 @@ package kr.co.papercraft.eatgo.interfaces;
 
 
 import kr.co.papercraft.eatgo.application.RestaurantService;
-import kr.co.papercraft.eatgo.domain.MenuItemRepository;
-import kr.co.papercraft.eatgo.domain.Restaurant;
-import kr.co.papercraft.eatgo.domain.RestaurantRepository;
-import kr.co.papercraft.eatgo.domain.MenuItem;
+import kr.co.papercraft.eatgo.domain.Model.Restaurant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,9 +17,6 @@ import java.util.List;
 public class RestaurantController {
     @Autowired
     private RestaurantService restaurantService;
-
-    @Autowired
-
 
     @GetMapping("/restaurants")
     public List<Restaurant> list(){

@@ -8,11 +8,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.List;
-
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
-import static org.mockito.BDDMockito.given;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 
 public class ReviewServiceTest {
 
@@ -29,14 +26,14 @@ public class ReviewServiceTest {
     }
 
     @Test
-    public void getReviews(){
-        List<Review> mockReviews = reviewRepository.findAll();
-        mockReviews.add(Review.builder().description("good").name("paper").score(3).build());
-        given(reviewRepository.findAll()).willReturn(mockReviews);
-
-        List<Review> reviews = reviewService.getReviews();
-        Review review = reviews.get(0);
-        assertThat(review.getDescription(), is("good"));
+    public void addReview(){
+        Review review = Review.builder()
+                .name("paper")
+                .score(4)
+                .description("오이시이하네요")
+                .restaurantId(2L)
+                .build();
+        reviewService.addReview(1L, review);
+        verify(reviewRepository).save(any());
     }
-
 }

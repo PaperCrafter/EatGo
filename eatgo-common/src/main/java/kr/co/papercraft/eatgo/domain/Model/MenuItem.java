@@ -1,4 +1,4 @@
-package kr.co.papercraft.eatgo.domain;
+package kr.co.papercraft.eatgo.domain.Model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;

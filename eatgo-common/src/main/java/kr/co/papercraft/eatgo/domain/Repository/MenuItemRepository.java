@@ -1,5 +1,6 @@
-package kr.co.papercraft.eatgo.domain;
+package kr.co.papercraft.eatgo.domain.Repository;
 
+import kr.co.papercraft.eatgo.domain.Model.MenuItem;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

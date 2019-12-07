@@ -1,7 +1,7 @@
 package kr.co.papercraft.eatgo.interfaces;
 
-import kr.co.papercraft.eatgo.application.ReviewService;
-import kr.co.papercraft.eatgo.domain.Model.Review;
+import kr.co.papercraft.eatgo.application.RegionService;
+import kr.co.papercraft.eatgo.domain.Model.Region;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,39 +13,32 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.core.StringContains.containsString;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(ReviewController.class)
-public class ReviewControllerTest {
+@WebMvcTest(RegionController.class)
+public class RegionControllerTest {
 
     @Autowired
     MockMvc mvc;
 
     @MockBean
-    private ReviewService reviewService;
+    RegionService regionService;
+
 
     @Test
     public void list() throws Exception {
-        List<Review> reviews = new ArrayList<>();
-        reviews.add(Review.builder()
-                .name("paper")
-                .score(3)
-                .description("good")
-                .build());
+        List<Region> regions = new ArrayList<>();
+        regions.add(Region.builder().name("Seoul").build());
+        given(regionService.getRegions()).willReturn(regions);
 
-        given(reviewService.getReviews()).willReturn(reviews);
-
-
-        mvc.perform(get("/reviews"))
+        mvc.perform(get("/regions"))
                 .andExpect(status().isOk())
-                .andExpect(content().string(
-                    containsString("good")))
-                .andExpect(content().string(
-                        containsString("3")));
+                .andExpect(content().string(containsString("Seoul")));
     }
+
 }
