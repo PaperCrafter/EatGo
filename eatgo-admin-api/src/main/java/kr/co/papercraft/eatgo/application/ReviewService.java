@@ -13,7 +13,7 @@ public class ReviewService {
     @Autowired
     private ReviewRepository reviewRepository;
 
-    ReviewService(ReviewRepository reviewRepository){
+    public ReviewService(ReviewRepository reviewRepository){
         this.reviewRepository = reviewRepository;
     }
 
