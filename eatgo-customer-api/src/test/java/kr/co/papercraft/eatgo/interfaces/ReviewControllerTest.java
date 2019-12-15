@@ -30,9 +30,8 @@ public class ReviewControllerTest {
     @MockBean
     private ReviewService reviewService;
 
-
     @Test
-    public void createWithValidAttriyte() throws Exception {
+    public void createWithValidAttribute() throws Exception {
 
         given(reviewService.addReview(any(),any())).willReturn(
                 Review.builder()
@@ -50,7 +49,7 @@ public class ReviewControllerTest {
     }
 
     @Test
-    public void createWithInvalidAttriyte() throws Exception {
+    public void createWithInvalidAttribute() throws Exception {
         given(reviewService.addReview(any(),any())).willReturn(
                 Review.builder()
                         .id(1L)

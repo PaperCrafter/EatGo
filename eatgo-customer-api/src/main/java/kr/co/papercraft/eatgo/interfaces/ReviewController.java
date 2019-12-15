@@ -15,18 +15,17 @@ import java.net.URISyntaxException;
 
 @RestController
 public class ReviewController {
+
     @Autowired
     private ReviewService reviewService;
 
     @PostMapping("/restaurants/{restaurantId}/reviews")
     public ResponseEntity<?> create(@PathVariable Long restaurantId,
-                                    @Valid @RequestBody Review resource)
-            throws URISyntaxException {
-        Review review = reviewService.addReview(restaurantId, resource);
+                                    @Valid @RequestBody Review resource) throws URISyntaxException {
 
+        Review review = reviewService.addReview(restaurantId, resource);
         String url = "/restaurants/" + restaurantId +"/reviews/" + review.getId();
 
-        return ResponseEntity.created(new URI(url))
-                .body("{}");
+        return ResponseEntity.created(new URI(url)).body("{}");
     }
 }
