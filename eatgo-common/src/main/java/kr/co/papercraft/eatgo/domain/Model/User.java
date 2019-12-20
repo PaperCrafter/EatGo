@@ -1,5 +1,6 @@
 package kr.co.papercraft.eatgo.domain.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.Entity;
@@ -38,5 +39,11 @@ public class User {
 
     public void deactivate(){
         this.level = 0L;
+    }
+
+    @JsonIgnore
+    public String getAcessToken() {
+        if(password==null)return "";
+        return password.substring(0,10);
     }
 }

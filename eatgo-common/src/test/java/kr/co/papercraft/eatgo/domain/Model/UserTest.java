@@ -17,6 +17,17 @@ public class UserTest {
 
         assertThat(user.getName(), is("paper"));
         //assertThat();
-        }
+    }
 
+    @Test
+    public void accessTokenWithPassword(){
+        User user = User.builder().password("ACCESSTOKEN").build();
+        assertThat(user.getAcessToken(), is("ACCESSTOKE"));
+    }
+
+    @Test
+    public void accessTokenWithoutPassword(){
+        User user = new User();
+        assertThat(user.getAcessToken(), is(""));
+    }
 }
