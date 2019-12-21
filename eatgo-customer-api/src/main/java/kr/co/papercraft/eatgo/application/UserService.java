@@ -38,6 +38,7 @@ public class UserService {
                 .password(encodedPassword)
                 .level(1L)
                 .build();
+
         return userRepository.save(user);
     }
 

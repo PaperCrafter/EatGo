@@ -33,7 +33,8 @@ public class ReviewServiceTest {
                 .description("오이시이하네요")
                 .restaurantId(2L)
                 .build();
-        reviewService.addReview(1L, review);
+
+        reviewService.addReview(1L, "paper", 4,"오이시이");
         verify(reviewRepository).save(any());
     }
 

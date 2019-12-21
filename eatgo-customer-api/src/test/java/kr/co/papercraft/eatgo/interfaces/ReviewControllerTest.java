@@ -32,25 +32,26 @@ public class ReviewControllerTest {
 
     @Test
     public void createWithValidAttribute() throws Exception {
+        String token = "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsIm5hbWUiOiJwYXBlciJ9.N4whJRzIWO1rJCu9YYmGr9VVUNj_mTXBuRBQJBOkjdE";
 
-        given(reviewService.addReview(any(),any())).willReturn(
-                Review.builder()
-                        .id(1L)
-                        .build()
-        );
+        given(reviewService.addReview(1L,"paper",3,"맛있네요"))
+                .willReturn(Review.builder()
+                        .id(2L)
+                        .build());
 
         mvc.perform(post("/restaurants/1/reviews")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content("{\"name\":\"bob-zip\", \"score\":3, \"description\":\"맛있어요\"}"))
-                    .andExpect(status().isCreated())
-        .andExpect(header().string("location","/restaurants/1/reviews/1"));
+                .header("Authorization", "Bearer " + token)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"score\":3,\"description\":\"맛있네요\"}"))
+                .andExpect(status().isCreated())
+                .andExpect(header().string("location","/restaurants/1/reviews/2"));
 
-        verify(reviewService).addReview(eq(1L), any());
+        verify(reviewService).addReview(eq(1L), eq("paper"), eq(3), eq("맛있네요"));
     }
 
     @Test
     public void createWithInvalidAttribute() throws Exception {
-        given(reviewService.addReview(any(),any())).willReturn(
+        given(reviewService.addReview(any(),any(),any(),any())).willReturn(
                 Review.builder()
                         .id(1L)
                         .build()
@@ -61,7 +62,7 @@ public class ReviewControllerTest {
                 .content("{}"))
                 .andExpect(status().isBadRequest());
 
-        verify(reviewService, never()).addReview(eq(1L), any());
+        verify(reviewService, never()).addReview(any(), any(),any(),any());
     }
 
 }

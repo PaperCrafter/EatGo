@@ -13,6 +13,7 @@ import javax.validation.constraints.NotEmpty;
 @Entity
 @Builder
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Review {
@@ -20,7 +21,6 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty
     private String name;
 
     @Max(5)
