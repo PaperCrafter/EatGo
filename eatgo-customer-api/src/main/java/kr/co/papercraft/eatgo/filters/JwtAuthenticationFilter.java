@@ -1,7 +1,7 @@
 package kr.co.papercraft.eatgo.filters;
 
 import io.jsonwebtoken.Claims;
-import kr.co.papercrafter.eatgo.utils.JwtUtil;
+import kr.co.papercraft.eatgo.utils.JwtUtil;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

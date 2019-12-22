@@ -1,7 +1,7 @@
 package kr.co.papercraft.eatgo.interfaces;
 
-import kr.co.papercraft.eatgo.application.EmailNotExistedException;
 import kr.co.papercraft.eatgo.application.PasswordWrongException;
+import kr.co.papercraft.eatgo.application.EmailNotExistedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

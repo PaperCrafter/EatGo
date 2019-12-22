@@ -1,4 +1,4 @@
-package kr.co.papercrafter.eatgo.utils;
+package kr.co.papercraft.eatgo.utils;
 
 import io.jsonwebtoken.Claims;
 import org.junit.Before;
@@ -18,7 +18,7 @@ public class JwtUtilTests {
     }
     @Test
     public void createToken(){
-        String token = jwtUtil.createToken(1L, "paper");
+        String token = jwtUtil.createToken(1L, "paper", null);
         assertThat(token, containsString("."));
     }
 

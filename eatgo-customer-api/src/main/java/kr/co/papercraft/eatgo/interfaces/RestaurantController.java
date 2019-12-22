@@ -1,6 +1,5 @@
 package kr.co.papercraft.eatgo.interfaces;
 
-
 import kr.co.papercraft.eatgo.application.RestaurantService;
 import kr.co.papercraft.eatgo.domain.Model.Restaurant;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,5 +33,4 @@ public class RestaurantController {
 
         return restaurant;
     }
-
 }

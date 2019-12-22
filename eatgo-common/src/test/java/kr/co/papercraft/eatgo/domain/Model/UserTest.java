@@ -18,4 +18,16 @@ public class UserTest {
         assertThat(user.getName(), is("paper"));
         //assertThat();
     }
+
+    @Test
+    public void restaurantOwner(){
+        User user = User.builder().level(1L).build();
+        assertThat(user.isRestaurantOwner(), is(false));
+
+        user.setRestaurantId(1L);
+        assertThat(user.isRestaurantOwner(), is(true));
+
+        assertThat(user.getRestaurantId(), is(1L));
+    }
+
 }

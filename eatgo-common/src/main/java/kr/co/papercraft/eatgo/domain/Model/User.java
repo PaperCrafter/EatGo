@@ -30,13 +30,24 @@ public class User {
     @NotNull
     private Long level;
 
-    private String password;
+    private Long restaurantId;
 
+    private String password;
+    //1 일반유저 2 owner 3 master
     public boolean isAdmin(){
-        return level>=3;
+        return level==3;
     }
 
     public void deactivate(){
         this.level = 0L;
+    }
+
+    public void setRestaurantId(Long restaurantId){
+        this.level = 2L;
+        this.restaurantId = restaurantId;
+    }
+
+    public boolean isRestaurantOwner() {
+        return level==2;
     }
 }
