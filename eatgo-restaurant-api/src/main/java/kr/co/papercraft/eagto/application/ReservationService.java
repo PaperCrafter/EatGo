@@ -1,4 +1,4 @@
-package kr.co.papercraft.eatgo.application;
+package kr.co.papercraft.eagto.application;
 
 import kr.co.papercraft.eatgo.domain.Model.Reservation;
 import kr.co.papercraft.eatgo.domain.Repository.ReservationRepository;
