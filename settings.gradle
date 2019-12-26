@@ -6,5 +6,3 @@ include 'eatgo-customer-api'
 include 'eatgo-login-api'
 include 'eatgo-restaurant-api'
 
-findProject(':eatgo-customer-api')?.name = 'eatgo-customer'
-
